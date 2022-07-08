@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace WebApp.Controllers
+{
+    public class HomeController : Controller
+    {
+
+
+        //Action methods 
+        // GET: Home
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Aboutus()
+        {
+
+
+            CRMServiceReference.IService1 crmService = new CRMServiceReference.Service1Client(); // proxy objecty
+            CRMServiceReference.Customer theCustomer = crmService.GetCustomerDetails("123");
+            ViewBag.FirstName = theCustomer.FirstName;
+            ViewBag.LastName = theCustomer.LastName;
+
+
+            BankingServiceReference.IService1 bankingService = new BankingServiceReference.Service1Client();
+            BankingServiceReference.Account acct = bankingService.GetAccountDetails("456");
+             ViewBag.AccountHolder = acct.Name;
+
+
+
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
+    }
+}
